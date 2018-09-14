@@ -77,18 +77,13 @@ public class ConsentRequestSteps {
     public void sendConsentRequest() throws HttpClientErrorException {
         HttpEntity entity = PaymentUtils.getHttpEntity(context.getTestData().getRequest(),
             context.getAccessToken());
-        try {
             ResponseEntity<ConsentsResponse201> response = restTemplate.exchange(
                 context.getBaseUrl() + "/consents",
                 HttpMethod.POST,
                 entity,
                 ConsentsResponse201.class);
-            context.setActualResponse(response);
-        } catch (RestClientResponseException e) {
-            String a = e.getResponseBodyAsString();
-            System.out.println(a);
-        }
 
+            context.setActualResponse(response);
     }
 
     @Then("^a successful response code and the appropriate consent response data is delivered to the PSU$")
